@@ -27,7 +27,7 @@ export default defineConfig({
                 name: "brand",
                 label: "Seasons",
                 path: "src/content/brands",
-                format: "mdoc",
+                format: "md",
                 fields: [
                     {
                         type: "string",
@@ -53,7 +53,7 @@ export default defineConfig({
                 name: "article",
                 label: "Articles",
                 path: "src/content/articles",
-                format: "mdoc",
+                format: "md",
                 fields: [
                     {
                         type: "string",
