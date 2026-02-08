@@ -1,0 +1,64 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="copyright">
+      © {currentYear} BrandAnatomy Journal
+    </p>
+    <nav class="footer-nav">
+      <a href="/about">About</a>
+      <a href="mailto:hello@brandanatomy.com">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    width: 100%;
+    border-top: 1px solid #000;
+    margin-top: auto;
+  }
+  
+  .footer-inner {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .copyright {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    color: #888;
+  }
+  
+  .footer-nav {
+    display: flex;
+    gap: 1.25rem;
+  }
+  
+  .footer-nav a {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    color: #888;
+    text-decoration: none;
+  }
+  
+  .footer-nav a:hover {
+    color: #000;
+  }
+  
+  @media (min-width: 768px) {
+    .footer-inner {
+      padding: 1.5rem 2rem;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+</style>

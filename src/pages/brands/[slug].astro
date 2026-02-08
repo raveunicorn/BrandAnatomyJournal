@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const brands = await getCollection('brands');
+  return brands.map((brand) => ({
+    params: { slug: brand.id },
+    props: { brand },
+  }));
+}
+
+const { brand } = Astro.props;
+const { Content } = await render(brand);
+
+// Get articles for this brand
+const allArticles = await getCollection('articles');
+const brandArticles = allArticles.filter(a => a.data.brand === brand.id);
+---
+
+<BaseLayout title={brand.data.title}>
+  <Header />
+  
+  <main class="main">
+    <article class="page">
+      <p class="kicker">Season</p>
+      <h1 class="title">{brand.data.title}</h1>
+      <hr class="rule" />
+      
+      <div class="description">
+        <Content />
+      </div>
+      
+      {brandArticles.length > 0 && (
+        <section class="articles-section">
+          <h2 class="section-title">Episodes</h2>
+          <ul class="list">
+            {brandArticles.map((article) => (
+              <li class="list-item">
+                <a href={`/articles/${article.id}`} class="list-link">
+                  <span class="list-title">{article.data.title}</span>
+                  {article.data.excerpt && (
+                    <p class="list-excerpt">{article.data.excerpt}</p>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </article>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<style>
+  .main {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+  
+  .page {
+    padding: 2.5rem 0 3rem;
+  }
+  
+  .kicker {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .title {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  .rule {
+    border: none;
+    border-top: 1px solid #000;
+    margin: 0 0 1.5rem;
+  }
+  
+  .description {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #333;
+  }
+  
+  .description :global(p) {
+    margin-bottom: 1rem;
+  }
+  
+  .articles-section {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e5e5;
+  }
+  
+  .section-title {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .list-item {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  .list-link {
+    display: block;
+    padding: 1rem 0;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .list-link:hover .list-title {
+    text-decoration: underline;
+  }
+  
+  .list-title {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 600;
+    display: block;
+  }
+  
+  .list-excerpt {
+    font-family: var(--font-serif);
+    font-size: 0.9375rem;
+    color: #666;
+    line-height: 1.5;
+    margin-top: 0.25rem;
+  }
+  
+  @media (min-width: 768px) {
+    .main {
+      padding: 0 2rem;
+    }
+    
+    .page {
+      padding: 3.5rem 0 4rem;
+    }
+    
+    .title {
+      font-size: 2rem;
+    }
+  }
+</style>

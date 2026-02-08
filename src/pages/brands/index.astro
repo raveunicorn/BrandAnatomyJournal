@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const brands = await getCollection('brands');
+---
+
+<BaseLayout title="Seasons">
+  <Header />
+  
+  <main class="main">
+    <section class="page">
+      <p class="kicker">Archive</p>
+      <h1 class="title">Seasons</h1>
+      <p class="lead">
+        Each season explores the rise, fall, or transformation of an iconic brand.
+      </p>
+      <hr class="rule" />
+      
+      <div class="content">
+        {brands.length === 0 ? (
+          <p class="empty">
+            No seasons published yet. Create your first season in 
+            <a href="/keystatic">Keystatic CMS</a>.
+          </p>
+        ) : (
+          <ul class="list">
+            {brands.map((brand) => (
+              <li class="list-item">
+                <a href={`/brands/${brand.id}`} class="list-link">
+                  <span class="list-title">{brand.data.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<style>
+  .main {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+  
+  .page {
+    padding: 2.5rem 0 3rem;
+  }
+  
+  .kicker {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .title {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  
+  .lead {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1.5rem;
+  }
+  
+  .rule {
+    border: none;
+    border-top: 1px solid #000;
+    margin: 0 0 1.5rem;
+  }
+  
+  .content {
+    padding-top: 0.5rem;
+  }
+  
+  .empty {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: #888;
+  }
+  
+  .empty a {
+    color: var(--color-ink-blue);
+    text-decoration: underline;
+  }
+  
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .list-item {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  .list-link {
+    display: block;
+    padding: 1rem 0;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .list-link:hover .list-title {
+    text-decoration: underline;
+  }
+  
+  .list-title {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  @media (min-width: 768px) {
+    .main {
+      padding: 0 2rem;
+    }
+    
+    .page {
+      padding: 3.5rem 0 4rem;
+    }
+    
+    .title {
+      font-size: 2rem;
+    }
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+interface Props {
+  note: string;
+}
+
+const { note } = Astro.props;
+
+// Random rotation between -4 and 4 degrees
+const rotation = (Math.random() * 8 - 4).toFixed(1);
+---
+
+<span class="margin-anchor">
+  <span class="margin-dot">•</span>
+  <aside class="margin-note" style={`--rotation: ${rotation}deg;`}>
+    <svg class="arrow-svg" viewBox="0 0 100 50" fill="none" preserveAspectRatio="none">
+      <path 
+        d="M 95 10 C 70 15, 40 25, 15 35 C 8 38, 3 42, 0 48" 
+        stroke="currentColor" 
+        stroke-width="1.8"
+        stroke-linecap="round"
+        fill="none"
+      />
+      <path 
+        d="M 0 48 L 7 42 M 0 48 L 3 38" 
+        stroke="currentColor" 
+        stroke-width="1.8"
+        stroke-linecap="round"
+      />
+    </svg>
+    <div class="note-text">{note}</div>
+  </aside>
+</span>
+
+<style>
+  .margin-anchor {
+    position: relative;
+    display: inline;
+  }
+  
+  .margin-dot {
+    color: var(--color-ink-blue);
+    font-weight: bold;
+  }
+  
+  .margin-note {
+    display: none;
+  }
+  
+  @media (min-width: 1100px) {
+    .margin-dot {
+      display: none;
+    }
+    
+    .margin-note {
+      display: block;
+      position: absolute;
+      left: calc(100% + 80px);
+      top: -20px;
+      width: 200px;
+      transform: rotate(var(--rotation, -2deg));
+      color: var(--color-ink-blue);
+      z-index: 100;
+    }
+    
+    .arrow-svg {
+      position: absolute;
+      right: calc(100% + 5px);
+      top: 30px;
+      width: 70px;
+      height: 40px;
+      color: var(--color-ink-blue);
+    }
+    
+    .note-text {
+      font-family: var(--font-hand);
+      font-weight: 700;
+      font-size: 1.25rem;
+      line-height: 1.35;
+      text-indent: 0;
+      padding-left: 8px;
+    }
+    
+    /* Random line shifts effect via text-indent on first line */
+    .note-text::first-line {
+      text-indent: 4px;
+    }
+  }
+</style>

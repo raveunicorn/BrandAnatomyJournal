@@ -1,0 +1,105 @@
+---
+import Logo from '../assets/BAJ Logo.svg?raw';
+---
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo-link" aria-label="Home">
+      <div class="logo" set:html={Logo} />
+    </a>
+    
+    <nav class="nav">
+      <a href="/brands">Seasons</a>
+      <a href="/articles">Articles</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    width: 100%;
+    border-bottom: 1px solid #000;
+  }
+  
+  .header-inner {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0.875rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .logo-link {
+    display: block;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+  
+  .logo {
+    height: 1.25rem;
+    color: #000;
+  }
+  
+  .logo :global(svg) {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    flex-shrink: 0;
+  }
+  
+  .nav a {
+    font-family: var(--font-hand);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-ink-blue);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  
+  .nav a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (min-width: 480px) {
+    .logo {
+      height: 1.5rem;
+    }
+    
+    .nav {
+      gap: 1.25rem;
+    }
+    
+    .nav a {
+      font-size: 1.0625rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .header-inner {
+      padding: 1rem 2rem;
+    }
+    
+    .logo {
+      height: 1.75rem;
+    }
+    
+    .nav {
+      gap: 1.75rem;
+    }
+    
+    .nav a {
+      font-size: 1.125rem;
+    }
+  }
+</style>

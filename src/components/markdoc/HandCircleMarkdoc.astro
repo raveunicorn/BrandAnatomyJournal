@@ -1,0 +1,11 @@
+---
+import HandCircle from '../HandCircle.astro';
+
+interface Props {
+  content?: string;
+}
+
+const { content } = Astro.props;
+---
+
+<HandCircle>{content}</HandCircle>

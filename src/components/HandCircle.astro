@@ -1,0 +1,44 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<span class:list={["hand-circle", className]}>
+  <slot />
+  <svg class="circle-svg" viewBox="0 0 120 50" preserveAspectRatio="none">
+    <path 
+      d="M 6 25 
+         C 4 10, 30 2, 60 3 
+         C 90 4, 116 8, 117 25 
+         C 118 42, 92 48, 60 47 
+         C 28 46, 4 40, 6 25" 
+      fill="none" 
+      stroke="currentColor" 
+      stroke-width="1.2"
+      stroke-linecap="round"
+    />
+  </svg>
+</span>
+
+<style>
+  .hand-circle {
+    position: relative;
+    display: inline;
+    color: var(--color-ink-blue);
+    white-space: nowrap;
+  }
+  
+  .circle-svg {
+    position: absolute;
+    left: -12px;
+    right: -12px;
+    top: -8px;
+    bottom: -8px;
+    width: calc(100% + 24px);
+    height: calc(100% + 16px);
+    pointer-events: none;
+    overflow: visible;
+  }
+</style>

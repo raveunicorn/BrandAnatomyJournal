@@ -1,0 +1,11 @@
+---
+import HandUnderline from '../HandUnderline.astro';
+
+interface Props {
+  content?: string;
+}
+
+const { content } = Astro.props;
+---
+
+<HandUnderline>{content}</HandUnderline>
