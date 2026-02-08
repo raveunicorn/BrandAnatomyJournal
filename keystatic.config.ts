@@ -1,7 +1,10 @@
 import { config, fields, collection } from '@keystatic/core';
 
 export default config({
-    storage: { kind: 'local' },
+    storage: {
+        kind: 'github',
+        repo: 'raveunicorn/BrandAnatomyJournal',
+    },
 
     ui: {
         brand: {
